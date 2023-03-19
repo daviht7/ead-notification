@@ -1,13 +1,19 @@
 package com.ead.notification.dtos;
 
-import com.ead.notification.models.NotificationStatus;
-import lombok.Data;
+import com.ead.notification.enums.NotificationStatus;
 
 import javax.validation.constraints.NotNull;
 
-@Data
 public class NotificationDto {
 
     @NotNull
     private NotificationStatus notificationStatus;
+
+    public NotificationStatus getNotificationStatus() {
+        return notificationStatus;
+    }
+
+    public void setNotificationStatus(NotificationStatus notificationStatus) {
+        this.notificationStatus = notificationStatus;
+    }
 }

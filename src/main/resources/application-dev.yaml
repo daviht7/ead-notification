@@ -7,3 +7,6 @@ spring:
         serviceId: ead-config-server
       username: configserver
       password: 'ead123cs'
+
+
+

@@ -1,9 +1,10 @@
 package com.ead.notification.consumers;
 
 import com.ead.notification.dtos.NotificationCommandDto;
-import com.ead.notification.enums.NotificationStatus;
 import com.ead.notification.models.NotificationModel;
+import com.ead.notification.models.NotificationStatus;
 import com.ead.notification.services.NotificationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
@@ -16,19 +17,18 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+@RequiredArgsConstructor
 @Component
 public class NotificationConsumer {
 
-    final NotificationService notificationService;
+    private final NotificationService notificationService;
 
-    public NotificationConsumer(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
-
-    @RabbitListener(bindings = @QueueBinding(
-            value = @Queue(value = "${ead.broker.queue.notificationCommandQueue.name}", durable = "true"),
-            exchange = @Exchange(value = "${ead.broker.exchange.notificationCommandExchange}", type = ExchangeTypes.TOPIC, ignoreDeclarationExceptions = "true"),
-            key = "${ead.broker.key.notificationCommandKey}")
+    @RabbitListener(
+            bindings = @QueueBinding(
+                    value = @Queue(value = "${ead.broker.queue.notificationCommandQueue.name}", durable = "true"),
+                    exchange = @Exchange(value = "${ead.broker.exchange.notificationCommandExchange}", type = ExchangeTypes.TOPIC, ignoreDeclarationExceptions = "true"),
+                    key = "${ead.broker.key.notificationCommandKey}"
+            )
     )
     public void listen(@Payload NotificationCommandDto notificationCommandDto) {
         var notificationModel = new NotificationModel();
