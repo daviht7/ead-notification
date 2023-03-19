@@ -8,9 +8,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface NotificationService {
-    void saveNotification(NotificationModel notificationModel);
+    NotificationModel saveNotification(NotificationModel notificationModel);
 
-    Page<NotificationModel> findAllNotificationByUser(UUID userId, Pageable pageable);
+    Page<NotificationModel> findAllNotificationsByUser(UUID userId, Pageable pageable);
 
     Optional<NotificationModel> findByNotificationIdAndUserId(UUID notificationId, UUID userId);
 }
